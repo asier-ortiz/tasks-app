@@ -10,4 +10,4 @@ Tasks App is an uncomplicated web application build with Angular and Material UI
 
 ## Screenshots
 
-<img src="screenshots/screenshot-1.png" width="500"> <img src="screenshots/screenshot-2.png" width="500">
+<img src="screenshots/screenshot-1.png" width="500"> <img src="screenshots/screenshot-2.png" width="500"> <img src="screenshots/screenshot-3.png" width="500">
