@@ -1,0 +1,81 @@
+<div class="modal fade" id="formTaskModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form (ngSubmit)="_onFormSubmit($event)" [formGroup]="formTask">
+        <div class="modal-header">
+          <h2 class="modal-title text-center"> {{isEditing ? 'Editar tarea ' + selectedTaskRef?.title : 'Nueva tarea'}}</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2">
+            <div *ngIf="isEditing" class="col-12 my-3 pe-xl-2">
+              <label class="ms-1 mb-1 text-secondary" for="list">Lista</label>
+              <select formControlName="list" id="list" class="form-select" aria-label="Task's list">
+                <option [ngValue]="null" disabled selected>Mover la tarea a</option>
+                <option *ngFor="let taskList of _getOptionsForTaskListSelect() |orderBy : 'title' : 'desc'" [ngValue]="taskList">{{taskList.title}}</option>
+              </select>
+            </div>
+            <div class="form-floating col-md-6 mb-3 pe-xl-2">
+              <input formControlName="title" id="title" type="text" class="form-control" placeholder="Titulo" required
+                     [ngClass]="
+                 (formTask.get('title').touched || formTask.get('title').dirty) &&
+                 formTask.get('title').hasError('required')
+                 ? 'is-invalid': ''
+                 ||
+                 formTask.get('title').hasError('minlength')
+                 ? 'is-invalid' : ''
+                 ||
+                 (formTask.get('title').touched || formTask.get('title').dirty) &&
+                 !formTask.get('title').invalid
+                 ? 'is-valid' : ''
+                 "
+              >
+              <label for="title">Título</label>
+              <div class="invalid-feedback">
+                {{formTask.get('title').hasError('required') ? 'El campo título es obligatorio' : '' }}
+                {{formTask.get('title').hasError('minlength') ? 'El título debe tener al menos 3 caracteres' : '' }}
+              </div>
+            </div>
+            <div class="form-floating col-md-6 mb-3 pe-xl-2">
+              <input formControlName="notes" id="notes" type="text" class="form-control" placeholder="Detalles"
+                     [ngClass]="
+                 formTask.get('notes').hasError('minlength')
+                 ? 'is-invalid' : ''
+                 ||
+                 (formTask.get('notes').touched || formTask.get('notes').dirty) &&
+                 !formTask.get('notes').invalid
+                 ? 'is-valid' : ''
+                 "
+              >
+              <label for="notes">Detalles</label>
+              <div class="invalid-feedback">
+                {{formTask.get('notes').hasError('minlength') ? 'El título debe tener al menos 3 caracteres' : '' }}
+              </div>
+            </div>
+            <div class="col-12 mb-3 pe-xl-2">
+              <div class="row d-flex align-items-center justify-content-center">
+                <mat-form-field appearance="fill">
+                  <mat-label>Añadir fecha</mat-label>
+                  <input formControlName="due" matInput [matDatepicker]="picker">
+                  <mat-hint>DD/MM/YYYY</mat-hint>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer row justify-content-between">
+          <div class="col-auto">
+            <button *ngIf="isEditing" id="delete" type="submit" class="btn btn-danger shadow" data-bs-dismiss="modal">Eliminar</button>
+          </div>
+          <div class="col-auto">
+              <button type="button" class="btn btn-secondary shadow me-2" data-bs-dismiss="modal">Cancelar</button>
+              <button id="{{isEditing ? 'edit' : 'create'}}"  type="submit" [disabled]="formTask.invalid" class="btn btn-primary shadow" data-bs-dismiss="modal">
+                Guardar
+              </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

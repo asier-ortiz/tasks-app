@@ -1,0 +1,68 @@
+<div class="container mt-5">
+  <ng-container *ngTemplateOutlet="listZone"></ng-container>
+  <ng-container *ngTemplateOutlet="formTasksListModalZone"></ng-container>
+</div>
+
+<ng-template #listZone>
+  <h1 class="text-primary fw-bolder">Mis Listas</h1>
+  <div class="list-group">
+    <a *ngFor="let taskList of tasksLists | orderBy:'title' :'desc'" [routerLink]="['/my-lists', taskList.id]" class="list-group-item list-group-item-action py-3 mb-2 border border-1 rounded">
+      <div class="d-flex justify-content-between">
+        <span class="fw-bold">{{taskList.title}}</span>
+        <div class="d-inline-block">
+          <span *ngIf="taskList.tasksCount > 0" class="badge rounded-pill bg-primary me-4">{{taskList.tasksCount}}</span>
+          <i class="bi bi-arrow-right"></i>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="py-3">
+    <button type="button" class="btn btn-outline-primary btn-sm shadow" data-bs-toggle="modal" data-bs-target="#formNewListModal">
+      <i class="bi bi-plus-circle-fill me-2" role="icon" aria-label="Plus icon"></i>Nueva lista
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #formTasksListModalZone>
+  <div class="modal fade" id="formNewListModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form (ngSubmit)="_onCreateNewTasksList()" [formGroup]="formTasksList">
+          <div class="modal-header">
+            <h2 class="modal-title text-center">Nueva lista</h2>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating col-12">
+              <input formControlName="title" id="title" type="text" class="form-control" placeholder="Nueva lista"
+                     required
+                     [ngClass]="
+                 (formTasksList.get('title').touched || formTasksList.get('title').dirty) &&
+                 formTasksList.get('title').hasError('required')
+                 ? 'is-invalid': ''
+                 ||
+                 formTasksList.get('title').hasError('minlength')
+                 ? 'is-invalid' : ''
+                 ||
+                 (formTasksList.get('title').touched || formTasksList.get('title').dirty) &&
+                 !formTasksList.get('title').invalid
+                 ? 'is-valid' : ''
+                 "
+              >
+              <label for="title">Título</label>
+              <div class="invalid-feedback">
+                {{formTasksList.get('title').hasError('required') ? 'El campo título es obligatorio' : '' }}
+                {{formTasksList.get('title').hasError('minlength') ? 'El título debe tener al menos 3 caracteres' : '' }}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary shadow" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" [disabled]="formTasksList.invalid" class="btn btn-primary shadow" data-bs-dismiss="modal">
+              Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

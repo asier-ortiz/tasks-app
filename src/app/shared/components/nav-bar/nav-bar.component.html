@@ -1,0 +1,38 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <div class="navbar-brand">
+        <img class="navbrand bg-dark rounded ms-2" src="assets/images/logo.png" alt="Inicio">
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li *ngFor="let item of menuItems" [routerLink]="item.router" class="nav-item link">
+            <a class="nav-link py-2 px-2 px-md-4">
+              <i [ngClass]="['bi', item.icon]" class="me-2" role="img" aria-label="{{item.name}}"></i>
+              {{item.name}}
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav me-4">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+              {{_authService.user.email}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li>
+                <button class="dropdown-item" (click)="_signOut()">Cerrar sesión
+                  <i class="bi bi-box-arrow-in-right"></i>
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

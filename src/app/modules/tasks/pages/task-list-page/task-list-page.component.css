@@ -1,0 +1,44 @@
+.list-group-item {
+  background-color: #F5F5F5;
+}
+
+.list-group-item:hover {
+  background-color: #DCDCDC;
+}
+
+.bi-info-circle-fill:hover {
+  transform: scaleX(1.1%);
+  filter: brightness(100%);
+  border: 1px solid transparent;
+}
+
+.highlighted {
+  background-color: #C0C0C0;
+}
+
+.bi-info-circle-fill {
+  font-size: 22px;
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+.bi-grip-vertical {
+  font-size: 22px;
+  cursor: grab;
+}
+
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.clear-tasks,
+.tasks-list-title {
+  cursor: pointer;
+}
+
+.clear-tasks:hover,
+.tasks-list-title:hover {
+  text-decoration: underline;
+}

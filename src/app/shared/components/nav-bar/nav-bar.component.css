@@ -1,0 +1,12 @@
+.navbrand {
+  max-height: 40px;
+}
+
+.navbar-nav > .nav-item {
+  cursor: pointer;
+}
+
+.navbar-nav > .link:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-5%);
+}
